@@ -71,18 +71,17 @@ class AddressController extends Controller
         }
         if (Yii::$app->request->post()) {
             $checkLoad = $model->load(Yii::$app->request->post());
-            
+
             $model->file = UploadedFile::getInstance($model, 'avatar');
             $model->user_id = $userID;
 
             if ($checkLoad && $model->save()) {
                 return $this->redirect(['/user/update', 'id' => $userID]);
-            }else{
+            } else {
                 return $this->renderAjax('/user/create-address', [
                     'model' => $model,
-                ]);    
+                ]);
             }
-            
         } else {
             return $this->renderAjax('/user/create-address', [
                 'model' => $model,
@@ -102,17 +101,16 @@ class AddressController extends Controller
         }
         if (Yii::$app->request->post()) {
             $checkLoad = $model->load(Yii::$app->request->post());
-            
+
             $model->file = UploadedFile::getInstance($model, 'avatar');
 
             if ($checkLoad && $model->save()) {
                 return $this->redirect(['/user/update', 'id' => $userID]);
-            }else{
+            } else {
                 return $this->renderAjax('/user/update-address', [
                     'model' => $model,
-                ]);    
+                ]);
             }
-            
         } else {
             return $this->renderAjax('/user/update-address', [
                 'model' => $model,
@@ -124,7 +122,7 @@ class AddressController extends Controller
     {
         $user = $this->findModel($id);
         $userAddress = $user->address;
-     
+
         return $this->renderAjax('/user/view-address', [
             'user_address' => $userAddress,
             'user' => $user,
