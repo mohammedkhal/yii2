@@ -7,16 +7,12 @@
 
 namespace yii\db;
 
-use common\models\UsersValidationLog;
-use kartik\form\ActiveForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
 
 /**
  * ActiveRecord is the base class for classes representing relational data in terms of objects.
@@ -83,7 +79,6 @@ use yii\web\Response;
  */
 class ActiveRecord extends BaseActiveRecord
 {
-  
     /**
      * The insert operation. This is mainly used when overriding [[transactions()]] to specify which operations are transactional.
      */
@@ -102,7 +97,7 @@ class ActiveRecord extends BaseActiveRecord
      */
     const OP_ALL = 0x07;
 
-   
+
     /**
      * Loads default values from database table schema.
      *
