@@ -148,7 +148,6 @@ class AddressController extends Controller
         if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
-            exit;
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
