@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\User;
 use common\models\UsersAddress;
 use Yii;
+use backend\Repositories\UserRepository;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\web\Response;
@@ -17,6 +18,15 @@ use yii\widgets\ActiveForm;
  */
 class AddressController extends Controller
 {
+    protected $userRepository;
+
+    public function __construct($id, $module, $config = [], UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+        parent::__construct($id, $module, $config);
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -32,7 +42,6 @@ class AddressController extends Controller
                             'allow' => true,
                             'actions' => [''],
                             'matchCallback' => function ($rule, $action) {
-
                                 return Yii::$app->admin->isGuest;
                             }
                         ],
@@ -59,8 +68,12 @@ class AddressController extends Controller
             ],
         ];
     }
+
+
     public function actionCreate()
     {
+        // var_dump($this->userRepository->fetchActiveUser());
+        // exit;
         $model = new UsersAddress();
 
         $userID = Yii::$app->user->id;
