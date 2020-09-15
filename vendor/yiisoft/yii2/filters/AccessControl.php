@@ -61,7 +61,6 @@ class AccessControl extends ActionFilter
      * Starting from version 2.0.2, this can also be a configuration array for creating the object.
      * Starting from version 2.0.12, you can set it to `false` to explicitly switch this component support off for the filter.
      */
-    
     public $user = 'user';
     /**
      * @var callable a callback that will be called if the access should be denied

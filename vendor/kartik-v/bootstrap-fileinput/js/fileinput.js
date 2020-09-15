@@ -5846,7 +5846,7 @@
         removeFromPreviewOnError: false,
         deleteUrl: '',
         deleteExtraData: {},
-        overwriteInitial: false,
+        overwriteInitial: true,
         sanitizeZoomCache: function (content) {
             var $container = $h.createElement(content);
             $container.find('input,textarea,select,datalist,form,.file-thumbnail-footer').remove();

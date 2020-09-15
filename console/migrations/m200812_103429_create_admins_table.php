@@ -31,13 +31,6 @@ class m200812_103429_create_admins_table extends Migration
             
         ]);
 
-        $this->createIndex(
-            'index',
-            'users',
-            ['phone_number',
-            'status',
-            'created_at']
-        );
     }
 
     /**

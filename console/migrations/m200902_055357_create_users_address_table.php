@@ -27,14 +27,6 @@ class m200902_055357_create_users_address_table extends Migration
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
 
         ]);
-
-        $this->createIndex(
-            'users',
-            '{{%users_address}}',
-            ['phone_number',
-            'status',
-            'created_at']
-        );
     }
 
     /**
