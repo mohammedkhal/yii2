@@ -28,14 +28,6 @@ class m200809_090438_create_users_talble extends Migration
 
             
         ]);
-
-        $this->createIndex(
-            'index',
-            'users',
-            ['phone_number',
-            'status',
-            'created_at']
-        );
     }
 
     /**
