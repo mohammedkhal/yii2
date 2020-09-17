@@ -48,7 +48,12 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => UrlRule::class, 'controller' => 'post']
+                [
+                    'pattern' => 'posts/<post_id:\d+>',
+                    'route' => 'post/post-view'
+                ],
+                ['class' => UrlRule::class, 'controller' => ['post', 'comment']],
+
             ],
         ],
     ],
