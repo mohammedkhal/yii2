@@ -33,7 +33,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         parent::init();
 
-        $this->on(self::EVENT_AFTER_INSERT, [$this, 'uploadFile']);
+        // $this->on(self::EVENT_AFTER_INSERT, [$this, 'uploadFile']);
         $this->on(self::EVENT_AFTER_UPDATE, [$this, 'uploadFile']);
         $this->on(self::EVENT_AFTER_VALIDATE, [$this, 'afterValidate']);
     }
@@ -132,6 +132,14 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     /**
+     * Generates access_token
+     */
+    public function generateAccessToken()
+    {
+        $this->access_token = Yii::$app->security->generateRandomString();
+    }   
+
+    /**
      * {@inheritdoc}
      */
     public function uploadFile()
@@ -175,7 +183,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return null;
+        return static::findOne(['access_token' => $token, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**

@@ -106,6 +106,7 @@ class UserController extends Controller
 
         if (Yii::$app->request->post()) {
             $checkLoad = $model->load(Yii::$app->request->post());
+            $model->generateAccessToken();
             $model->files = UploadedFile::getInstances($model, 'files');
             if ($checkLoad && $model->save()) {
                 return $this->redirect(['../site/login']);

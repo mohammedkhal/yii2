@@ -7,6 +7,7 @@
 
 namespace yii\rest;
 
+use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\web\ForbiddenHttpException;
@@ -39,6 +40,7 @@ use yii\web\ForbiddenHttpException;
  */
 class ActiveController extends Controller
 {
+
     /**
      * @var string the model class name. This property must be set.
      */
@@ -133,5 +135,8 @@ class ActiveController extends Controller
      */
     public function checkAccess($action, $model = null, $params = [])
     {
+        if("Bearer BJ4sup0k2c4iiwX0e8J9t21a-N5iByUk" !== Yii::$app->request->getHeaders()['authorization'] ){
+            throw new ForbiddenHttpException('you arw not allowed to access');
+        }
     }
 }

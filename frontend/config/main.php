@@ -16,6 +16,12 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'response' => [
+            'format' => yii\web\Response::FORMAT_JSON,
+            'charset' => 'UTF-8',
+            'class' => '\frontend\api\ApiResponse',
+            // 'class' => 'yii\web\Response'
+        ], 
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'parsers' => [
@@ -48,11 +54,12 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => UrlRule::class, 'controller' => ['post', 'comment']],
+
                 [
                     'pattern' => 'posts/<post_id:\d+>',
-                    'route' => 'post/post-view'
+                    'route' => 'posts/post-view'
                 ],
-                ['class' => UrlRule::class, 'controller' => ['post', 'comment']],
 
             ],
         ],

@@ -10,51 +10,24 @@ use common\models\User;
  */
 class SignupForm extends Model
 {
-    public $username;
-    public $email;
-    public $password;
-
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
-
-            ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
-
-            ['password', 'required'],
-            ['password', 'string', 'min' => 12],
-        ];
-    }
 
     /**
      * Signs user up.
      *
      * @return bool whether the creating new account was successful and email was sent
      */
-    public function signup()
+    public function signup($data)
     {
-        if (!$this->validate()) {
-            return null;
-        }
-        
+        // var_dump($data['first_name']);exit;
         $user = new User();
-        $user->username = $this->username;
-        $user->email = $this->email;
-        $user->setPassword($this->password);
-        $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
-        return $user->save() && $this->sendEmail($user);
+        $user->first_name = $data['first_name'];
+        $user->last_name = $data['last_name'];
+        $user->phone_number = $data['phone_number'];
+
+        $user->setPassword($data['password']);
+        $user->generateAccessToken();
+
+        return $user->save() ? $user->access_token : false;
 
     }
 
