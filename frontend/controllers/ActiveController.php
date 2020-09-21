@@ -17,7 +17,6 @@ class ActiveController extends \yii\rest\ActiveController
     {
         $behaviors = parent::behaviors();
         
-
         $behaviors['authenticator']['only'] = ['create', 'update', 'delete'];
         $behaviors['authenticator']['authMethods'] = [
             HttpBearerAuth::class
@@ -27,3 +26,4 @@ class ActiveController extends \yii\rest\ActiveController
     }
 
 }
+

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\User;
 use common\models\UsersAddress;
 use Yii;
+use backend\Repositories\UserRepository;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\web\Response;
@@ -17,6 +18,15 @@ use yii\widgets\ActiveForm;
  */
 class AddressController extends Controller
 {
+    protected $userRepository;
+
+    public function __construct($id, $module, $config = [], UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+        parent::__construct($id, $module, $config);
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -32,7 +42,6 @@ class AddressController extends Controller
                             'allow' => true,
                             'actions' => [''],
                             'matchCallback' => function ($rule, $action) {
-
                                 return Yii::$app->admin->isGuest;
                             }
                         ],
@@ -59,8 +68,12 @@ class AddressController extends Controller
             ],
         ];
     }
+
+
     public function actionCreate()
     {
+        // var_dump($this->userRepository->fetchActiveUser());
+        // exit;
         $model = new UsersAddress();
 
         $userID = Yii::$app->user->id;
@@ -71,18 +84,17 @@ class AddressController extends Controller
         }
         if (Yii::$app->request->post()) {
             $checkLoad = $model->load(Yii::$app->request->post());
-            
+
             $model->file = UploadedFile::getInstance($model, 'avatar');
             $model->user_id = $userID;
 
             if ($checkLoad && $model->save()) {
                 return $this->redirect(['/user/update', 'id' => $userID]);
-            }else{
+            } else {
                 return $this->renderAjax('/user/create-address', [
                     'model' => $model,
-                ]);    
+                ]);
             }
-            
         } else {
             return $this->renderAjax('/user/create-address', [
                 'model' => $model,
@@ -102,17 +114,16 @@ class AddressController extends Controller
         }
         if (Yii::$app->request->post()) {
             $checkLoad = $model->load(Yii::$app->request->post());
-            
+
             $model->file = UploadedFile::getInstance($model, 'avatar');
 
             if ($checkLoad && $model->save()) {
                 return $this->redirect(['/user/update', 'id' => $userID]);
-            }else{
+            } else {
                 return $this->renderAjax('/user/update-address', [
                     'model' => $model,
-                ]);    
+                ]);
             }
-            
         } else {
             return $this->renderAjax('/user/update-address', [
                 'model' => $model,
@@ -124,7 +135,7 @@ class AddressController extends Controller
     {
         $user = $this->findModel($id);
         $userAddress = $user->address;
-     
+
         return $this->renderAjax('/user/view-address', [
             'user_address' => $userAddress,
             'user' => $user,

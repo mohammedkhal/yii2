@@ -9,7 +9,7 @@ use common\models\User;
 /**
  * user repository
  */
-class UserRepository extends Controller
+class UserRepository
 {
     /**
      * initial new User object.
@@ -24,6 +24,7 @@ class UserRepository extends Controller
 
     public function fetchActiveUser()
     {
+        var_dump('in sid repo'); exit;
         $users = $this->getModel();
 
         $users = $users->findAll([

@@ -1,4 +1,7 @@
 <?php
+
+use backend\Repositories\UserRepository;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
 
@@ -8,9 +11,7 @@ $params = array_merge(
     require __DIR__ . '/params-local.php'
 );
 
-$container = new \yii\di\Container;
 
-// $container->set('backend\controllers\AdminController', 'backend\Repositories\UserRepository' );
 
 return [
     'id' => 'app-backend',
@@ -26,6 +27,8 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
+        'format' => yii\web\Response::FORMAT_JSON,
+
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => false,
